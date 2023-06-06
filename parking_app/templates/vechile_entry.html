@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="card col-sm-6">
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-danger">{{ message }}</div>
+            {% endfor %}
+            {% endif %}
+            <div class="card-header"><span class="fa fa-plus-square"></span>&nbsp; Add Vechiles</div>
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        {{form.vehicle_no.label_tag}}
+                        {{form.vehicle_no}}
+                    </div>
+                    <div class="col-sm-6">{{form.vehicle_type.label_tag}}
+                        {{form.vehicle_type}}</div>
+                </div>
+                <div class="">
+                    {{form.parking_area_no.label_tag}}
+                    {{form.parking_area_no}}
+                </div>
+                <div class=" ">{{form.parking_charge.label_tag}}
+                    {{form.parking_charge}}</div>
+                <br>
+                <input type="submit" value="Submit" class="form-control btn btn-primary">
+            </form>
+        </div>
+        <!-- ################################################ -->
+
+        <div class="container " style="margin-top:-32%; margin-left: 56%;">
+
+            <div class="card ">
+                <div class="card-header"><span class="fa fa-info-circle"></span>&nbsp;Vehicle Limitations</div>
+                <table class="table">
+                    {% for x1 in categories %}
+                    <tr>
+                        <td>{{x1.vehicle_type}}
+                        <td><span class="rounded bg-success text-white"
+                                style="padding-left: 4px; padding-right: 4px;">{{ x1.vehicle_count.0 }}</span> out of {{ x1.vehicle_count.1 }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+
+        </div>
+
+        <!-- ##################################################### -->
+
+    </div>
+</div>
+
+
+<div class="container" style="margin-top: 30px;">
+    <div class="row">
+        <div class="card">
+            <div class="card-header"><span class="fa fa-list"></span>&nbsp;Current Vehicle</div>
+            <div class="col-md-12">
+                <table class="table table-bordered table-striped table-hover">
+                    <tr>
+                        <th>#</th>
+                        <th>Vehicle Number</th>
+                        <th>Area Number</th>
+                        <th>Arrival Time</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                    {% for x2 in current_vehicle %}
+                    <tr>
+                        <td>{{x2.id}}</td>
+                        <td>{{x2.vehicle_no}}</td>
+                        <td>{{x2.parking_area_no}}</td>
+                        <td>{{x2.arrival_time}}</td>
+                        <td
+                            class="{% if x2.status == 'parked' %}badge badge-pill badge-primary {% elif x2.status == 'leaved' %}badge badge-pill badge-success {% endif %} my-2 ml-1">
+                            {{x2.status}}</td>
+                        <td><a href="{% url 'receipt' x2.id %}" class="btn btn-secondary"><span
+                                    class="fa fa-ticket"></span>&nbsp;&nbsp; Receipt</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+{% endblock%}

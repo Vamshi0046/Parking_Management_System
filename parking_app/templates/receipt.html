@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+<br>
+<div class="container">
+    <div class="col-sm-6  offset-sm-3"  >
+       <div class="row">
+        <div class="card" style="background-color:rgb(219, 213, 204); padding-top: 10px; padding-left: 10px; padding-right: 10px;">
+            <div class="text-center" >
+                <div class="text-center"><i class="fa fa-car fa-5x"></i></div>
+                <p>Rakhapuram, Hyderabad, India <br>
+                8888-888-8888 </p>
+                <p>-----------------------------------</p>
+                 <p>Parking receipt</p>
+                <p>-----------------------------------</p>
+               <p>
+                     Vehicle Number :   {{receipt.vehicle_no}} <br>
+                     Arrival Time   :   {{receipt.arrival_time}} <br>
+                     vehicle Type   :   {{receipt.vehicle_type}}
+                </p>
+                <h5>Paid :     <span><i class="fa fa-inr "></i></span>&nbsp;&nbsp;  {{receipt.parking_charge}}</h5>
+                <p>=====================</p>
+                <p>THANK YOU AND DRIVE SAFELY!</p>
+                
+            </div>
+            <button onclick="printReceipt()">Print Receipt</button>
+        </div>
+       </div>
+    </div>
+</div>
+
+<script>
+    function printReceipt() {
+        window.print(); // Trigger the browser's print functionality
+    }
+</script>
+
+{% endblock %}

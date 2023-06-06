@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<div class="container">
+    <div class="row">
+        <div class="card col-sm-6">
+            <div class="card-header"><span class="fa fa-list"></span>&nbsp; Add Category</div>
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        {{form.parking_area_no.label_tag}}
+                        {{form.parking_area_no}}
+                    </div>
+                    <div class="col-sm-6">{{form.vehicle_type.label_tag}}
+                        {{form.vehicle_type}}</div>
+                </div>
+                <div class="">
+                    {{form.vehicle_limit.label_tag}}
+                    {{form.vehicle_limit}}
+                </div>
+                <div class=" ">{{form.parking_charge.label_tag}}
+                    {{form.parking_charge}}</div>
+                <br>
+                <input type="submit" value="Update Category" class="form-control btn btn-primary">
+            </form>
+        </div>
+
+
+
+{% endblock %}

@@ -1,0 +1,158 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Parking Management Dashboard</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+
+    <style>
+        .sidebar {
+            background-color: #f8f9fa;
+            padding: 20px;
+            height: 100vh;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .sidebar li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar li a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .sidebar li .row-item:hover {
+            background-color: blue;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .sidebar li .row-item {
+            padding: 10px;
+            transition: background-color 0.3s ease;
+        }
+        .navbar li a {
+            color: white;
+            text-decoration: none;
+        }
+        #logo {
+            color: white;
+            text-decoration: none;
+        }
+        .sidebar {
+            height: 500px;
+        }
+        .jumbotron-heading {
+            margin-top: -50px;
+            height:1px ;  
+        }
+        .card {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        border-radius: 4px;
+        }
+        
+        
+    </style>
+</head>
+
+<body>
+    <div class="">
+        <nav class="navbar navbar-expand-lg  bg-dark">
+            <a class="navbar-brand" href="#"id="logo"><span class="fa fa-car"></span>&nbsp;&nbsp;SPMS Panel</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <!-- <li class="nav-item active">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li> -->
+                    <li class="nav-item">
+                        <div class="bg-primary"><a class="nav-link"  href="javascript:{document.getElementById('logout').submit()}"><span class="fa fa-power-off"></span>&nbsp;&nbsp;Logout</a></div>
+                        <form action="{% url 'logoutpage' %}" method="POST" id="logout">
+                            {% csrf_token %}
+                            <input type="hidden">
+                        </form>
+                        
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="fluid">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="sidebar bg-dark">
+                    <ul class="my-3">
+                        <li>
+                            <div class="row-item"><a href="{% url 'dashboard' %}"><span class="fa fa-dashboard"></span>&nbsp;&nbsp;Dashboard</a></div>
+                        </li>
+                        <li>
+                            <div class="row-item"><a href="{% url 'addcat' %}"><span class="fa fa-folder"></span>&nbsp;&nbsp;Category</a></div>
+                        </li>
+                        <li>
+                            <div class="row-item"><a href="{% url 'addvehcile' %}"><span class="fa fa-file"></span>&nbsp;&nbsp;Vehicle Entry</a></div>
+                        </li>
+                        <li>
+                            <div class="row-item"><a href="{% url 'manage' %}"><span class="fa fa-th-list"></span>&nbsp;&nbsp;Manage Vechiles</a></div>
+                        </li>
+                        <li>
+                            <div class="row-item"><a href="{% url 'reports' %}"><span class="fa fa-line-chart"></span>&nbsp;&nbsp;Reports</a></div>
+                        </li>
+                        <li>
+                            <div class="row-item"><a href="{% url 'search' %}"><span class="fa fa-search"></span>&nbsp;&nbsp;Search</a></div>
+                        </li>
+                        <li>
+                            <div class="row-item"><a href="{% url 'account_settings' %}"><span class="fa fa-cog"></span>&nbsp;&nbsp;Account Setting</a></div>
+                        </li>
+                        <li>
+                            <div class="row-item"><a href="javascript:{document.getElementById('logout').submit()}"><span class="fa fa-power-off"></span>&nbsp;&nbsp;Logout</a></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-9">
+                <div class="content">
+
+                    <!-- Main content goes here -->
+                    {% block content %}
+
+
+
+                    {% endblock %}
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>

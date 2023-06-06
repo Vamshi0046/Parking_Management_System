@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="">
+    <div class="container" >
+        <div class="">
+            <div class="card">
+                <div class="card-header"><span class="fa fa-search"></span>&nbsp; Search Data | Only the records of the last 30 days are availabel here </div>
+               <div class="col-sm-3 offset-sm-9 ">
+                <br>
+                <form class="d-flex" role="search" method="get" action="{% url 'manage' %}">
+                    <input class="form-control me-2" name="query" type="search" placeholder="Search"
+                        aria-label="Search">
+                    <button class="btn btn-dark" type="submit"><span class="fa fa-search"></span>&nbsp; </button>
+                </form>
+                <br>
+               </div>
+                <div class="col-md-12">
+                    <table class="table table-bordered table-striped" >
+                        <tr>
+                            <th>#</th>
+                            <th>Vehicle Number</th>
+                            <th>Type</th>
+                            <th>Area No</th>
+                            <th>Charge</th>
+                            <th>Arrival time</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                        {% for x1 in manage %}
+                        <tr>
+                            <td>{{ x1.id }}</td>
+                            <td>{{x1.vehicle_no}}</td>
+                            <td>{{x1.vehicle_type}}</td>
+                            <td>{{x1.parking_area_no}}</td>
+                            <td><span class="fa fa-inr" style="color: gold;"></span>&nbsp; {{x1.parking_charge}}</td>
+                            <td>{{x1.arrival_time}}</td>
+                            <td class="{% if x1.status == 'parked' %}badge badge-pill badge-primary {% elif x1.status == 'leaved' %}badge badge-pill badge-success {% endif %} my-3" style="margin-left: 15px;">{{x1.status}}</td>
+                            <td><a href="{% url 'update_status' x1.id %}"><button class="btn {% if x1.status == 'parked' %} btn-primary {% endif %}" >Done</button></a></td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+function changeColor() {
+  var button = document.getElementById("myButton");
+  button.style.backgroundColor = "blue";
+  button.style.color = "white";
+}
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<div class="container">
+    <div class="row">
+        <div class="card col-sm-6">
+            <div class="card-header"><span class="fa fa-list"></span>&nbsp; Add Category</div>
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        {{form.parking_area_no.label_tag}}
+                        {{form.parking_area_no}}
+                    </div>
+                    <div class="col-sm-6">{{form.vehicle_type.label_tag}}
+                        {{form.vehicle_type}}</div>
+                </div>
+                <div class="">
+                    {{form.vehicle_limit.label_tag}}
+                    {{form.vehicle_limit}}
+                </div>
+                <div class=" ">{{form.parking_charge.label_tag}}
+                    {{form.parking_charge}}</div>
+                <br>
+                <input type="submit" value="Submit" class="form-control btn btn-primary">
+            </form>
+        </div>
+<!-- ################################################ -->
+
+<div class="container" style="margin-top:-32%; margin-left: 56%;">
+    <div class="card">
+        <div class="card-header"><span class="fa fa-info-circle"></span>&nbsp;Details</div>
+        <table class="table table-borderd">
+            {% for x1 in details %}
+            <tr>
+                <td>{{x1.vehicle_type}}
+                <td><span class="fa fa-inr"></span>&nbsp;{{x1.parking_charge}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+
+<!-- ###################################################### -->
+    </div>
+</div>
+
+
+
+    <div class="container" style="margin-top: 25px;">
+    <div class="">
+        <div class="card">
+            <div class="card-header"><span class="fa fa-list"></span>&nbsp;Manage Category</div>
+            <br>
+            <div class="col-md-12">
+                <table class="table table-bordered table-striped table-hover">
+                    <tr>
+                        <th>#</th>
+                        <th>Area Number</th>
+                        <th>Vehicle Type</th>
+                        <th>Vehicle Limit</th>
+                        <th>Charge</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                    {% for x2 in details %}
+                    <tr>
+                        <td>{{x2.cat_id}}</td>
+                        <td>{{x2.parking_area_no}}</td>
+                        <td>{{x2.vehicle_type}}</td>
+                        <td>{{x2.vehicle_limit}}</td>
+                        <td>{{x2.parking_charge}}</td>
+                        <td class="{% if x2.status == 'activated' %}badge badge-pill badge-success {% elif x2.status == 'Dactivated' %}badge badge-pill badge-danger {% endif %} my-3 ml-3">{{x2.status}}</td>
+                        <td><a href="{% url 'update_status_cat' x2.cat_id %}" class="btn btn-danger" >Deactivate</a> &nbsp;&nbsp;  <a href="{% url 'update_category' x2.cat_id %}"><span class="fa fa-pencil btn btn-primary"></span></a> &nbsp;&nbsp; <a href="{% url 'delete_category' x2.cat_id %}" class="btn btn-danger">
+                            <span class="fa fa-trash"></span></a></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+    <div class="row">
+        <p class="ml-5">Total {{total_category}} entries</p>
+        <div class="col-md-12 offset-sm-9">
+            {% if details.has_other_pages %}
+            <ul class="pagination">
+                {% if details.has_previous %}
+                <li class="page-item">
+                    <a href="?page={{ details.previous_page_number }}"></a> <span class="page-link">Previous</span>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                    <a href="?page={{ details.paginator.number_pages }}" class="page-link"></a>
+                </li>
+                {% endif %}
+
+                <!-- open number pagination -->
+                {% for i in details.paginator.page_range %}
+                {% if details.number == i %}
+                <li class="page-item active">
+                    <a href="?page={{i}}" class="page-link">{{i}}</a>
+                </li>
+                {% else %}
+                <li class="page-item">
+                    <a href="?page={{i}}" class="page-link">{{i}}</a>
+
+                </li>
+                {% endif %}
+                {% endfor %}
+                <!-- closed number pagination -->
+
+
+
+                <!-- ################ -->
+                {% if details.has_next %}
+                <li class="page-item">
+                    <a href="?page={{ details.next_page_number }}"></a> <span class="page-link">NEXT</span>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                    <a href="?page={{ details.paginator.number_pages }}" class="page-link"></a>
+                </li>
+                {% endif %}
+            </ul>
+            {% endif %}
+        </div>
+    </div>
+        </div>
+    </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock%}

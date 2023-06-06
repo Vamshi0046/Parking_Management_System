@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block content %}
+<br>
+
+<div class="container">
+    <div class="row" style="height:140px;">
+        <div class="box col-md-4 bg-info mx-1" >
+            <div >
+                <span class="text-white ml-4" style="font-size: 60px;">{{ parked }}</span>
+                <span class="fa-solid fa-square-parking fa-4x text-white" style="margin-left: 150px; margin-top: 25px;"></span>
+                <p class="text-white">Vehicles Parked</p>
+            </div>
+        </div>
+        <div class="box col-md-4 bg-dark mx-1">
+            <div>
+                <span class="text-white ml-4" style="font-size: 60px;">{{ departed }}</span>
+                <span class="fa-solid fa-car fa-4x text-white" style="margin-left: 150px; margin-top: 25px;"></span>
+                <p class="text-white">Departed Vehicles</p>
+            </div>
+        </div>
+        <div class="box col-md-3 bg-danger mx-1">
+            <div>
+                <span class="text-white ml-2" style="font-size: 50px;">{{ available_category }}</span>
+                <i class="fa-solid fa-box fa-4x text-white" style="margin-left: 120px; margin-top: 30px;"></i>
+                <p class="text-white">Available Category</p>
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="row" style="height:140px;">
+        <div class="box col-md-4 bg-warning mx-1" >
+            <div >
+                <span class="text-white ml-2" style="font-size: 50px;">{{ total_earnings }}</span>
+                <i class="fa-solid fa-inr fa-4x text-white" style="margin-left: 120px; margin-top: 25px;"></i>
+                <p class="text-white">Total Earnings</p>
+            </div>
+        </div>
+        <div class="box col-md-4 bg-secondary mx-1">
+            <div>
+                <span class="text-white ml-4" style="font-size: 60px;">{{ total_records}}</span>
+                <i class="fa-solid fa-layer-group fa-4x text-white" style="margin-left: 150px; margin-top: 25px;"></i>
+                <p class="text-white">Total Records</p>
+            </div>
+        </div>
+        <div class="box col-md-3 bg-primary mx-1">
+            <div>
+                <span class="text-white ml-2" style="font-size: 50px;">{{ total_parking_slots }}</span>
+                <i class="fa-solid fa-check-double fa-4x text-white" style="margin-left: 65px; margin-top: 25px;"></i>
+                <p class="text-white">Total Parkind Slots</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock%}
