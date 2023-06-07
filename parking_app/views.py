@@ -142,6 +142,64 @@ def update_status(request, id):
     record.save()
     return redirect('manage')
 
+# def reports(request):
+#     return render(request,'reports.html')
+
+from django.shortcuts import render
+from datetime import datetime, timedelta
+import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use('Agg') 
+import matplotlib.dates as mdates
+from io import BytesIO
+import base64
+
 def reports(request):
-    return render(request,'reports.html')
+    # Retrieve the data for parked vehicles within the 10-day range
+    start_date = datetime.now() - timedelta(days=9)
+    end_date = datetime.now()
+    parked_vehicles = Vehicle.objects.filter(status='parked', arrival_time__range=(start_date, end_date))
+
+    # Group the parked vehicles by date
+    date_counts = {}
+    for vehicle in parked_vehicles:
+        date = vehicle.arrival_time.date()
+        if date in date_counts:
+            date_counts[date] += 1
+        else:
+            date_counts[date] = 1
+
+    # Sort the dates in ascending order
+    sorted_dates = sorted(date_counts.keys())
+
+    # Prepare the data for plotting
+    dates = [datetime.strptime(date.strftime('%m/%d/%Y'), '%m/%d/%Y') for date in sorted_dates]
+    counts = [date_counts[date] for date in sorted_dates]
+
+    # Generate the plot
+    fig, ax = plt.subplots(figsize=(9, 5))
+    ax.plot(dates, counts, marker='o')
+    ax.set_xlabel('Date')
+    ax.set_ylabel('Number of Parked Vehicles')
+    ax.set_title('Statistical Report: Parked Vehicles within 10-Day Range')
+    ax.xaxis.set_major_formatter(mdates.DateFormatter('%m/%d/%Y'))
+    ax.xaxis.set_major_locator(mdates.DayLocator())
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+
+    # Save the plot in a BytesIO buffer
+    buffer = BytesIO()
+    plt.savefig(buffer, format='png')
+    buffer.seek(0)
+    plot_data = buffer.getvalue()
+    buffer.close()
+
+    # Encode the plot data as base64 for embedding in the HTML
+    plot_base64 = base64.b64encode(plot_data).decode('utf-8')
+
+    # Pass the base64-encoded plot data to the template
+    context = {'plot_base64': plot_base64}
+    return render(request, 'reports.html', context)
+
+
 

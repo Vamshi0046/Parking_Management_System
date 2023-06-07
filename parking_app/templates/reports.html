@@ -1,9 +1,15 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<br>
-<h1>Still in Progress....</h1>
 
 
+<div class="container">
+    <div class="row-justify-content-center">
+        <div class="text-danger">
+            <h1>Statistical Report: Parked Vehicles within 10-Day Range</h1>
+            <img src="data:image/png;base64,{{ plot_base64 }}" alt="Statistical Report">
+        </div>
+    </div>
+</div>
 
 {% endblock %}
