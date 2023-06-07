@@ -149,6 +149,8 @@ from django.shortcuts import render
 from datetime import datetime, timedelta
 import matplotlib.pyplot as plt
 import matplotlib
+from matplotlib import style
+style.use('ggplot')
 matplotlib.use('Agg') 
 import matplotlib.dates as mdates
 from io import BytesIO
