@@ -145,7 +145,6 @@ def update_status(request, id):
 # def reports(request):
 #     return render(request,'reports.html')
 
-from django.shortcuts import render
 from datetime import datetime, timedelta
 import matplotlib.pyplot as plt
 import matplotlib
